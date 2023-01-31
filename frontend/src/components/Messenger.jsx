@@ -3,8 +3,18 @@ import { FaEdit, FaEllipsisH, FaSistrix } from 'react-icons/fa';
 import ActiveFriend from './ActiveFriend';
 import Friends from './Friends';
 import RightSide from './RightSide';
+import {useDispatch} from 'react-redux'
+import { useEffect } from 'react';
+import { getFriends } from '../store/actions/messengerAction';
 
 const Messenger = () => {
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getFriends());
+    }, []);
+
+
   return (
     <div className='messenger'>
         <div className='row'>
