@@ -1,4 +1,5 @@
 import axios from "axios"
+import { FRIEND_GET_SUCCESS } from "../types/messengerType";
 
 
 export const getFriends = () => async(dispatch) => {
