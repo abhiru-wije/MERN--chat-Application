@@ -15,3 +15,6 @@ module.exports.getFriends = async (req, res)=> {
         })
     }
 }
+module.exports.messageUploadDB = async (req, res) => {
+    console.log(req.body);
+}
