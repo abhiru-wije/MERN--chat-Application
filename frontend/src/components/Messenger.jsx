@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { FaEdit, FaEllipsisH, FaSistrix } from 'react-icons/fa';
 import ActiveFriend from './ActiveFriend';
@@ -5,7 +6,7 @@ import Friends from './Friends';
 import RightSide from './RightSide';
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from 'react';
-import { getFriends, messageSend } from '../store/actions/messengerAction';
+import { getFriends, messageSend, getMessage } from '../store/actions/messengerAction';
 import { useState } from 'react';
 
 const Messenger = () => {
@@ -43,6 +44,10 @@ const Messenger = () => {
             setCurrentFriend(friends[0])
         }
     }, [friends]);
+
+    useEffect(() => {
+        dispatch(getMessage(currentFriend._id))
+    }, [currentFriend?._id]);
 
 
   return (
