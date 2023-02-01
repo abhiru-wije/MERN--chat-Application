@@ -1,19 +1,19 @@
 import React from 'react'
 import { FaCaretSquareDown } from 'react-icons/fa'
 
-const FriendInfo = () => {
+const FriendInfo = ({currentFriend}) => {
   return (
     <div className="friend-info">
         <input type="checkbox" id="gallery" />
         <div className="image-name">
             <div className="image">
-            <img src="/image/45092new.png" alt="" />
+            <img src={`./image/${currentFriend.image}`} alt="" />
             </div>
             <div className="active-user">
                 Active
             </div>
             <div className="name">
-                <h4>Abhiru Wijesinghe</h4>
+                <h4>{currentFriend.userName}</h4>
             </div>
         </div>
         

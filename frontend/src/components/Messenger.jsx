@@ -6,8 +6,12 @@ import RightSide from './RightSide';
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from 'react';
 import { getFriends } from '../store/actions/messengerAction';
+import { useState } from 'react';
 
 const Messenger = () => {
+
+    const [currentFriend, setCurrentFriend] = useState('');
+    console.log(currentFriend)
 
     const {friends} = useSelector(state => state.messenger);
     const {myInfo} = useSelector(state => state.auth);
@@ -56,7 +60,7 @@ const Messenger = () => {
                     <div className="friends">
 
                         {
-                            friends && friends.length > 0 ? friends.map((fd) => <div className="hover-friend">
+                            friends && friends.length > 0 ? friends.map((fd) => <div onClick={() => setCurrentFriend(fd)} className="hover-friend">
                             <Friends friend={fd} />
                             </div>) : 'No Friend'
                         }
@@ -64,7 +68,10 @@ const Messenger = () => {
                     </div>
                 </div>
             </div>
-            <RightSide/>
+            {
+                currentFriend ? <RightSide currentFriend={currentFriend}/> : 'Please Select Your Friend'
+            }
+            
         </div>
     </div>
   )

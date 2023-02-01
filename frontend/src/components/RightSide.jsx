@@ -4,7 +4,12 @@ import FriendInfo from './FriendInfo';
 import Message from './Message';
 import MessageSend from './MessageSend';
 
-const RightSide = () => {
+const RightSide = (props) => {
+
+    const {currentFriend} = props;
+
+
+
   return (
     <div className="col-9">
         <div className="right-side">
@@ -15,10 +20,10 @@ const RightSide = () => {
                         <div className="header">
                             <div className="image-name">
                                 <div className="image">
-                                <img src="/image/45092new.png" alt="" />
+                                <img src={`./image/${currentFriend.image}`} alt="" />
                                 </div>
                                 <div className="name">
-                                    <h3>Abhiru Wijesinghe</h3>
+                                    <h3>{currentFriend.userName}</h3>
                                 </div>
                             </div>
                             <div className="icons">
@@ -40,7 +45,7 @@ const RightSide = () => {
                     </div>
                 </div>
                 <div className="col-4">
-                    <FriendInfo/>
+                    <FriendInfo currentFriend={currentFriend}/>
                 </div>
             </div>
         </div>
