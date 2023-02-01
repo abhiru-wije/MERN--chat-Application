@@ -16,5 +16,7 @@ module.exports.getFriends = async (req, res)=> {
     }
 }
 module.exports.messageUploadDB = async (req, res) => {
+    const senderId = req.myId
     console.log(req.body);
+    console.log(senderId);
 }
