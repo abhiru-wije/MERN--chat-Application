@@ -9,12 +9,16 @@ import { useEffect } from 'react';
 import { getFriends, messageSend, getMessage, ImageMessageSend } from '../store/actions/messengerAction';
 import { useState } from 'react';
 import { useRef } from 'react';
+import {io} from 'socket.io-client'
 
 const Messenger = () => {
 
     const scrollRef = useRef();
     const socket = useRef();
-    console.log(socket)
+    
+    useEffect(() => {
+        socket.current = io('ws://localhost:8000');
+    }, []);
 
     const [currentFriend, setCurrentFriend] = useState('');
     const [newMessage, setNewMessage] = useState('');
