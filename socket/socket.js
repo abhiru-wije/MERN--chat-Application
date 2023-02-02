@@ -33,7 +33,19 @@ io.on('connection', (socket) =>{
 
     socket.on('sendMessage', (data) => {
         const user = findFriend(data.receiverId);
-        console.log(user);
+
+        if(user !== undefined){
+            socket.to(user.socketId).emit('getMessage', {
+                senderId: data.senderId,
+                senderName: data.senderName,
+                receiverId: data.receiverId,
+                createAt: data.time,
+                message: {
+                    text: data.message.text,
+                    Image: data.message.image
+                }
+            })
+        }
     })
 
     socket.on('disconnect', () => {
