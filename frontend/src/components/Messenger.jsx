@@ -56,6 +56,10 @@ const Messenger = () => {
         scrollRef.current?.scrollIntoView({behavior: 'smooth'})
     }, [message]);
 
+    const emojiSend = (emu) => {
+        setNewMessage(`${newMessage}` + emu)
+    }
+
 
   return (
     <div className='messenger'>
@@ -111,6 +115,7 @@ const Messenger = () => {
                 sendMessage={sendMessage}
                 message={message}
                 scrollRef={scrollRef}
+                emojiSend={emojiSend}
                 /> : 'Please Select Your Friend'
             }
             

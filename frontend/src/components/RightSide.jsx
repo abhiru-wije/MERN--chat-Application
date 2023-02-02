@@ -6,7 +6,7 @@ import MessageSend from './MessageSend';
 
 const RightSide = (props) => {
 
-    const {currentFriend, newMessage, inputHandle, sendMessage, message, scrollRef} = props;
+    const {currentFriend, newMessage, inputHandle, sendMessage, message, scrollRef, emojiSend} = props;
 
   return (
     <div className="col-9">
@@ -47,6 +47,7 @@ const RightSide = (props) => {
                         inputHandle = {inputHandle}
                         newMessage = {newMessage}
                         sendMessage = {sendMessage}
+                        emojiSend = {emojiSend}
                         />
                     </div>
                 </div>
