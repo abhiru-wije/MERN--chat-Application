@@ -131,7 +131,7 @@ const Messenger = () => {
                     </div>
                     <div className="active-friends">
                         {
-                            activeUser && activeUser.length > 0 ? activeUser.map(u => <ActiveFriend user ={u} />) : ''
+                            activeUser && activeUser.length > 0 ? activeUser.map(u => <ActiveFriend  setCurrentFriend={setCurrentFriend}  user ={u} />) : ''
                         }
                         
                     </div>
@@ -157,6 +157,7 @@ const Messenger = () => {
                 scrollRef={scrollRef}
                 emojiSend={emojiSend}
                 imageSend={imageSend}
+                activeUser={activeUser}
                 /> : 'Please Select Your Friend'
             }
             
