@@ -43,6 +43,7 @@ const Messenger = () => {
                 })
             }
         }
+        setSocketMesssage('')
     }, [socketMessage]);
 
     useEffect(() => {
@@ -83,6 +84,7 @@ const Messenger = () => {
 
 
         dispatch(messageSend(data))
+        setNewMessage('')
     }
 
     console.log(currentFriend)
