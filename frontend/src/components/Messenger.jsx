@@ -92,6 +92,11 @@ const Messenger = () => {
                 image: ''
             }
         })
+        socket.current.emit('typingMessage', {
+            senderId: myInfo.id,
+            receiverId: currentFriend._id,
+            msg : ''
+        })
 
         dispatch(messageSend(data))
         setNewMessage('')
@@ -126,6 +131,17 @@ const Messenger = () => {
         if(e.target.files.length !== 0){
             const imagename = e.target.files[0].name;
             const newImageName = Date.now() + imagename;
+
+            socket.current.emit('sendMessage', {
+                senderId: myInfo.id,
+                senderName: myInfo.userName,
+                receiverId: currentFriend._id,
+                time: new Date(),
+                message: {
+                    text: '',
+                    image: newImageName
+                }
+            })
 
             const formData = new FormData();
 
@@ -200,6 +216,7 @@ const Messenger = () => {
                 emojiSend={emojiSend}
                 imageSend={imageSend}
                 activeUser={activeUser}
+                typingMessage = {typingMessage}
                 /> : 'Please Select Your Friend'
             }
             
