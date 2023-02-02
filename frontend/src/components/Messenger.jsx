@@ -6,7 +6,7 @@ import Friends from './Friends';
 import RightSide from './RightSide';
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from 'react';
-import { getFriends, messageSend, getMessage } from '../store/actions/messengerAction';
+import { getFriends, messageSend, getMessage, ImageMessageSend } from '../store/actions/messengerAction';
 import { useState } from 'react';
 import { useRef } from 'react';
 
@@ -58,6 +58,23 @@ const Messenger = () => {
 
     const emojiSend = (emu) => {
         setNewMessage(`${newMessage}` + emu)
+    }
+
+    const imageSend = (e) => {
+        if(e.target.files.length !== 0){
+            const imagename = e.target.files[0].name;
+            const newImageName = Date.now() + imagename;
+
+            const formData = new FormData();
+
+            formData.append('senderName', myInfo.userName)
+            formData.append('imagename', newImageName)
+            formData.append('receiverId', currentFriend._id)
+            formData.append('image', e.target.files[0])
+            dispatch(ImageMessageSend(formData))
+
+        }
+        
     }
 
 
@@ -116,6 +133,7 @@ const Messenger = () => {
                 message={message}
                 scrollRef={scrollRef}
                 emojiSend={emojiSend}
+                imageSend={imageSend}
                 /> : 'Please Select Your Friend'
             }
             

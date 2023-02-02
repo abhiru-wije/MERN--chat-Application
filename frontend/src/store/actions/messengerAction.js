@@ -45,3 +45,7 @@ export const getMessage = (id) => {
         }
     }
 }
+
+export const ImageMessageSend = (data) => async(dispatch) => {
+    
+}
