@@ -24,12 +24,18 @@ const Messenger = () => {
 
     const [activeUser, setActiveUser] = useState([]);
     const [socketMessage, setSocketMesssage] = useState('');
+    const [typingMessage, setTypingMessage] = useState('');
     
     useEffect(() => {
         socket.current = io('ws://localhost:8000');
         socket.current.on('getMessage', (data) => {
             setSocketMesssage(data);
         })
+
+        socket.current.on('typingMessageGet', (data) => {
+            setTypingMessage(data)
+        })
+
     }, []);
 
     useEffect(() => {
@@ -60,6 +66,12 @@ const Messenger = () => {
 
     const inputHandle = (e) => {
         setNewMessage(e.target.value);
+
+        socket.current.emit('typingMessage', {
+            senderId: myInfo.id,
+            receiverId: currentFriend._id,
+            msg : e.target.value
+        })
     }
     
     const sendMessage = (e) => {
@@ -81,14 +93,11 @@ const Messenger = () => {
             }
         })
 
-
-
         dispatch(messageSend(data))
         setNewMessage('')
     }
 
     console.log(currentFriend)
-
 
     const dispatch = useDispatch();
     useEffect(() => {
