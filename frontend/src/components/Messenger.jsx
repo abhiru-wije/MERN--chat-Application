@@ -13,6 +13,8 @@ import { useRef } from 'react';
 const Messenger = () => {
 
     const scrollRef = useRef();
+    const socket = useRef();
+    console.log(socket)
 
     const [currentFriend, setCurrentFriend] = useState('');
     const [newMessage, setNewMessage] = useState('');

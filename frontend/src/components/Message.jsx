@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -13,7 +14,7 @@ const Message = ({message, currentFriend, scrollRef}) => {
                 <div ref={scrollRef} className="my-message">
             <div className="image-message">
                 <div className="my-text">
-                    <p className='message-text'>{m.message.text}</p>
+                    <p className='message-text'>{m.message.text === '' ? <img src={`./image/${m.message.image}`}/> : m.message.text}</p>
                 </div>
             </div>
             <div className="time">
@@ -24,7 +25,7 @@ const Message = ({message, currentFriend, scrollRef}) => {
             <img src={`./image/${currentFriend.image}`}alt="" />
             <div className="message-time">
                 <div className="fd-text">
-                    <p className='message-text'>{m.message.text}</p>
+                    <p className='message-text'>{m.message.text === '' ? <img src={`./image/${m.message.image}`}/> : m.message.text}</p>
                 </div>
                 <div className="time">
                     3 Jan 2023
