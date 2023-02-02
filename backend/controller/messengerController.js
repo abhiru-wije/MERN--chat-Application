@@ -1,6 +1,7 @@
 const formidable = require('formidable');
 const User = require('../models/authModel')
 const messageModel = require('../models/messageModel');
+const fs = require('fs');
 
 module.exports.getFriends = async (req, res)=> {
     const myId = req.myId;
@@ -72,6 +73,7 @@ module.exports.messageGet = async (req, res) => {
 }
 
 module.exports.ImageMessageSend =(req, res) => {
+    const senderId = req.myId;
     const form = formidable();
 
     form.parse(req, (err, fields, files) => {
@@ -84,9 +86,36 @@ module.exports.ImageMessageSend =(req, res) => {
         files.image.originalFilename = imageName;
 
         try{
-            
-        }catch{
+            fs.copyFile(files.image.filepath, newPath, async (err) => {
+                if(err){
+                    res.status(500).json({
+                        error: {
+                            errorMessage: 'Image upload failed'
+                        }
+                    })
+                }else {
+                    const insertMessage = await messageModel.create({
+                        senderId: senderId,
+                        senderName: senderName,
+                        receiverId: receiverId,
+                        message: {
+                            text: '',
+                            image: files.image.originalFilename
+                        }
+                    })
+                    res.status(201).json({
+                        success: true,
+                        message: insertMessage
+                    })
 
+                }
+            })
+        }catch (error){
+            res.status(500).json({
+                error: {
+                    errorMessage: 'Internal Server Error'
+                }
+            })
         }
     })
 
