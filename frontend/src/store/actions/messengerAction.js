@@ -1,5 +1,5 @@
 import axios from "axios"
-import { FRIEND_GET_SUCCESS } from "../types/messengerType";
+import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS } from "../types/messengerType";
 
 
 export const getFriends = () => async(dispatch) => {
@@ -28,8 +28,13 @@ export const messageSend = (data) => async(dispatch) => {
 export const getMessage = (id) => {
     return async(dispatch) => {
         try{
-            const response = await axios.get(`/api/messenger/get-message/${id}`)
-            console.log(response.data)
+            const response = await axios.get(`/api/messenger/get-message/${id}`);
+            dispatch({
+                type: MESSAGE_GET_SUCCESS,
+                payload: {
+                    message: response.data.message
+                }
+            })
         }catch (error){
             console.log(error.response.data)
         }
