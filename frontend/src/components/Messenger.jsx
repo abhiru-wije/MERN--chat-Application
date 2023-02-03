@@ -11,8 +11,14 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import {io} from 'socket.io-client'
 import toast, {Toaster} from 'react-hot-toast'
+import useSound from 'use-sound';
+import notificationSound from '../audio/notification.mp3';
+import sendingSound from '../audio/sending.mp3';
 
 const Messenger = () => {
+
+    const [notificationSPlay] = useSound(notificationSound);
+    const [sendingSPlay] = useSound(sendingSound);
 
     const scrollRef = useRef();
     const socket = useRef();
@@ -66,6 +72,7 @@ const Messenger = () => {
 
     useEffect(() => {
         if(socketMessage && socketMessage.senderId !== currentFriend._id && socketMessage.receiverId === myInfo.id){
+            notificationSPlay();
             toast.success(`${socketMessage.senderName} Send a New Message`)
         }
     }, [socketMessage]);
@@ -83,6 +90,7 @@ const Messenger = () => {
     
     const sendMessage = (e) => {
         e.preventDefault();
+        sendingSPlay();
         const data = {
             senderName: myInfo.userName,
             receiverId: currentFriend._id,
@@ -141,6 +149,7 @@ const Messenger = () => {
 
     const imageSend = (e) => {
         if(e.target.files.length !== 0){
+            sendingSPlay();
             const imagename = e.target.files[0].name;
             const newImageName = Date.now() + imagename;
 
