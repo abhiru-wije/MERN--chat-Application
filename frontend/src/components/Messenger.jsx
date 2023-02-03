@@ -10,6 +10,7 @@ import { getFriends, messageSend, getMessage, ImageMessageSend } from '../store/
 import { useState } from 'react';
 import { useRef } from 'react';
 import {io} from 'socket.io-client'
+import toast, {Toaster} from 'react-hot-toast'
 
 const Messenger = () => {
 
@@ -62,6 +63,12 @@ const Messenger = () => {
             setActiveUser(filterUser)
         })
     }, []);
+
+    useEffect(() => {
+        if(socketMessage && socketMessage.senderId !== currentFriend._id && socketMessage.receiverId === myInfo.id){
+            toast.success(`${socketMessage.senderName} Send a New Message`)
+        }
+    }, [socketMessage]);
 
 
     const inputHandle = (e) => {
@@ -163,6 +170,15 @@ const Messenger = () => {
 
   return (
     <div className='messenger'>
+        <Toaster
+        position={'top-right'}
+        reverseOrder = {false}
+        toastOptions = {{
+            style: {
+                fontSize : '18px'
+            }
+        }}
+        />
         <div className='row'>
             <div className="col-3">
                 <div className="left-side">
