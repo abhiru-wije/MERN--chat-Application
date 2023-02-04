@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS } from "../types/messengerType";
 
 
@@ -58,5 +58,23 @@ export const ImageMessageSend = (data) => async(dispatch) => {
 
     }catch (error){
         console.log(error.response.data);
+    }
+}
+
+export const seenMessage = (msg) => async(dispatch) => {
+    try{
+        const response = await axios.post('/api/messenger/seen-message', msg)
+        console.log(response.data);
+    }catch (error){
+        console.log(error.response.message)
+    }
+}
+
+export const updateMessage = (msg) => async(dispatch) => {
+    try{
+        const response = await axios.post('/api/messenger/delivered-message', msg)
+        console.log(response.data);
+    }catch (error){
+        console.log(error.response.message)
     }
 }
