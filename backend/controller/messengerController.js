@@ -3,13 +3,55 @@ const User = require('../models/authModel')
 const messageModel = require('../models/messageModel');
 const fs = require('fs');
 
+const getLastMessage = async(myId, fdId) => {
+    const msg = await messageModel.findOne({
+        $or: [{
+            $and: [{
+                senderId: {
+                    $eq: myId
+                }
+            }, {
+                receiverId: {
+                    $eq: fdId
+                }
+            }]
+        }, {
+            $and: [{
+                senderId: {
+                    $eq : fdId
+                }
+            }, {
+                receiverId: {
+                    $eq: myId
+                }
+            }]
+        }]
+    }).sort({
+        updatedAt : -1
+    });
+    return msg
+}
+
 module.exports.getFriends = async (req, res)=> {
     const myId = req.myId;
-    // console.log(myId)
+    let fnd_msg = [];
     try{
-        const friendGet = await User.find({});
-        const filter = friendGet.filter(d => d.id !== myId);
-        res.status(200).json({success: true, friends: filter})
+        const friendGet = await User.find({
+            _id: {
+                $ne: myId
+            }
+        });
+        for (let i = 0; i < friendGet.length; i++){
+            let lmsg = await getLastMessage(myId, friendGet[i].id);
+            fnd_msg = [...fnd_msg, {
+                fndInfo : friendGet[i],
+                msgInfo: lmsg
+            }]
+            console.log(fnd_msg)
+        }
+
+        // const filter = friendGet.filter(d => d.id !== myId);
+        res.status(200).json({success: true, friends: friendGet})
     }catch (error){
         res.status(500).json({
             error: {
@@ -55,8 +97,30 @@ module.exports.messageGet = async (req, res) => {
 
     try {
         let getAllMessage = await messageModel.find({
+
+            $or: [{
+                $and: [{
+                    senderId: {
+                        $eq: myId
+                    }
+                }, {
+                    receiverId: {
+                        $eq: fdId
+                    }
+                }]
+            }, {
+                $and: [{
+                    senderId: {
+                        $eq : fdId
+                    }
+                }, {
+                    receiverId: {
+                        $eq: myId
+                    }
+                }]
+            }]
         })
-        getAllMessage = getAllMessage.filter(m => m.senderId === myId && m.receiverId === fdId || m.receiverId === myId && m.senderId === fdId);
+        // getAllMessage = getAllMessage.filter(m => m.senderId === myId && m.receiverId === fdId || m.receiverId === myId && m.senderId === fdId);
 
         res.status(200).json({
             success: true,
