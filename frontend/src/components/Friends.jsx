@@ -26,6 +26,17 @@ const Friends = (props) => {
                   <span>{msgInfo ? moment(msgInfo.createdAt).startOf('mini').fromNow() : moment(fndInfo.createdAt).startOf('mini').fromNow()}</span>
                 </div>
             </div>
+            {
+              myId === msgInfo?.senderId?
+              <div className="seen-unseen-icon">
+                <img src={`./image/${fndInfo.image}`} alt="" />
+              </div> :
+              <div className="seen-unseen-icon">
+                <div className="seen-icon">
+                  
+                </div>
+              </div>
+            }
         </div>
     </div>
   )
