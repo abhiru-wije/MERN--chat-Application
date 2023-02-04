@@ -47,11 +47,10 @@ module.exports.getFriends = async (req, res)=> {
                 fndInfo : friendGet[i],
                 msgInfo: lmsg
             }]
-            console.log(fnd_msg)
         }
 
         // const filter = friendGet.filter(d => d.id !== myId);
-        res.status(200).json({success: true, friends: friendGet})
+        res.status(200).json({success: true, friends: fnd_msg})
     }catch (error){
         res.status(500).json({
             error: {
