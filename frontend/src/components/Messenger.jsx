@@ -169,7 +169,7 @@ const Messenger = () => {
 
     useEffect(() => {
         if(friends && friends.length > 0){
-            setCurrentFriend(friends[0])
+            setCurrentFriend(friends[0].fndInfo)
         }
     }, [friends]);
 
