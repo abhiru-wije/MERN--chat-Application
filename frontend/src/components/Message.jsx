@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
+import moment from 'moment';
 import React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -19,7 +20,7 @@ const Message = ({message, currentFriend, scrollRef, typingMessage}) => {
                 </div>
             </div>
             <div className="time">
-                2 Jan 2022
+            {moment(m.createdAt).startOf('mini').fromNow()}
             </div>
         </div> : <div ref={scrollRef} className="fd-message">
             <div className="image-message-time">
@@ -29,13 +30,17 @@ const Message = ({message, currentFriend, scrollRef, typingMessage}) => {
                     <p className='message-text'>{m.message.text === '' ? <img src={`./image/${m.message.image}`}/> : m.message.text}</p>
                 </div>
                 <div className="time">
-                    3 Jan 2023
+                {moment(m.createdAt).startOf('mini').fromNow()}
                 </div>
             </div>
             </div>
         </div>
 
-                ) : ''
+                ) : <div className="friend_connect">
+                    <img src={`./image/${currentFriend.image}`}alt="" />
+                    <h3>{currentFriend.userName} Connect You</h3>
+                    <span>{moment(currentFriend.createdAt).startOf('mini').fromNow()}</span>
+                </div>
         }
           
     </div>
