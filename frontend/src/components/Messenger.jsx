@@ -184,18 +184,19 @@ const Messenger = () => {
         dispatch(getMessage(currentFriend._id));
 
         if(friends.length > 0){
-            dispatch({
-                type: 'UPDATE',
-                payload: {
-                    id: currentFriend._id
-                }
-            })
+            
         }
     }, [currentFriend?._id]);
 
     useEffect(() => {
         if(message.length > 0 ){
             if(message[message.length -1].senderId !== myInfo.id && message[message.length -1].status !== 'seen'){
+                dispatch({
+                    type: 'UPDATE',
+                    payload: {
+                        id: currentFriend._id
+                    }
+                })
                 socket.current.emit('seen', { senderId: currentFriend._id, receiverId: myInfo.id})
             dispatch(seenMessage({_id: message[message.length -1]._id}))
             }
