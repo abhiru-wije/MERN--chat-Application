@@ -3,6 +3,7 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Messenger from "./components/Messenger";
+import ProtectRoute from "./components/ProtectRoute";
 import Register from "./components/Register";
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/messenger/login" element={<Login/>}/>
         <Route path="/messenger/register" element={<Register/>}/>
-        <Route path="/" element={<Messenger/>}/>
+        <Route path="/" element={<ProtectRoute> <Messenger/> </ProtectRoute>}/>
       </Routes>
       </BrowserRouter>
     </div>
