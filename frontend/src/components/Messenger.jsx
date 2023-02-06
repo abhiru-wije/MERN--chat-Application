@@ -289,17 +289,17 @@ const Messenger = () => {
                             <input type="text" placeholder='Search' className='form-control'/>
                         </div>
                     </div>
-                    <div className="active-friends">
+                    {/* <div className="active-friends">
                         {
                             activeUser && activeUser.length > 0 ? activeUser.map(u => <ActiveFriend  setCurrentFriend={setCurrentFriend}  user ={u} />) : ''
                         }
                         
-                    </div>
+                    </div> */}
                     <div className="friends">
 
                         {
                             friends && friends.length > 0 ? friends.map((fd) => <div onClick={() => setCurrentFriend(fd.fndInfo)} className={currentFriend._id === fd.fndInfo._id ? 'hover-friend active' : 'hover-friend'}>
-                            <Friends myId= {myInfo.id} friend={fd} />
+                            <Friends myId= {myInfo.id} friend={fd} activeUser={activeUser}/>
                             </div>) : 'No Friend'
                         }
                         
