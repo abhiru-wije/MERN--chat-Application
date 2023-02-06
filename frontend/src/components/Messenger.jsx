@@ -20,7 +20,7 @@ const Messenger = () => {
     const scrollRef = useRef();
     const socket = useRef();
 
-    const {friends, message, messageSendSuccess, message_get_success, themeMood} = useSelector(state => state.messenger);
+    const {friends, message, messageSendSuccess, message_get_success, themeMood, new_user_add} = useSelector(state => state.messenger);
     const {myInfo} = useSelector(state => state.auth);
 
     const [currentFriend, setCurrentFriend] = useState('');
@@ -101,6 +101,15 @@ const Messenger = () => {
         })
     }, []);
 
+    socket.current.on('new_user_add', data => {
+        dispatch({
+            type: 'NEW_USER_ADD',
+            payload: {
+                new_user_add: data
+            }
+        })
+    })
+
     useEffect(() => {
         if(socketMessage && socketMessage.senderId !== currentFriend._id && socketMessage.receiverId === myInfo.id){
             notificationSPlay();
@@ -164,12 +173,11 @@ const Messenger = () => {
         }
     }, [messageSendSuccess]);
 
-    console.log(currentFriend)
-
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getFriends());
-    }, []);
+        dispatch({type: 'NEW_USER_ADD_CLEAR'})
+    }, [new_user_add]);
 
     useEffect(() => {
         if(friends && friends.length > 0){
