@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import { FaCaretSquareDown } from 'react-icons/fa'
 
-const FriendInfo = ({currentFriend, activeUser}) => {
+const FriendInfo = ({currentFriend, activeUser, message}) => {
   return (
     <div className="friend-info">
         <input type="checkbox" id="gallery" />
@@ -32,10 +33,9 @@ const FriendInfo = ({currentFriend, activeUser}) => {
             </div>
         </div>
         <div className="gallery">
-        <img src="/image/45092new.png" alt="" />
-        <img src="/image/45092new.png" alt="" />
-        <img src="/image/45092new.png" alt="" />
-        <img src="/image/45092new.png" alt="" />
+        {
+            message && message.length > 0 ? message.map((m, index) => m.message.image && <img key={index} src={`./image/${m.message.image}`} />) : ''
+        }
         </div>
     </div>
   )
