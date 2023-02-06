@@ -1,20 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { FaEdit, FaEllipsisH, FaSignOutAlt, FaSistrix } from 'react-icons/fa';
-import ActiveFriend from './ActiveFriend';
-import Friends from './Friends';
-import RightSide from './RightSide';
-import {useDispatch, useSelector} from 'react-redux'
-import { useEffect } from 'react';
-import { getFriends, messageSend, getMessage, ImageMessageSend, seenMessage, updateMessage } from '../store/actions/messengerAction';
-import { userLogout } from '../store/actions/authAction';
-import { useState } from 'react';
-import { useRef } from 'react';
-import {io} from 'socket.io-client'
-import toast, {Toaster} from 'react-hot-toast'
+import { useDispatch, useSelector } from 'react-redux';
+import { io } from 'socket.io-client';
 import useSound from 'use-sound';
 import notificationSound from '../audio/notification.mp3';
 import sendingSound from '../audio/sending.mp3';
+import { userLogout } from '../store/actions/authAction';
+import { getFriends, getMessage, ImageMessageSend, messageSend, seenMessage, updateMessage } from '../store/actions/messengerAction';
+import Friends from './Friends';
+import RightSide from './RightSide';
 
 const Messenger = () => {
 

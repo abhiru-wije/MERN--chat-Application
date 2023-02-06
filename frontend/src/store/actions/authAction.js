@@ -67,5 +67,16 @@ export const userLogin = (data) => {
 }
 
 export const userLogout = () => async(dispatch) => {
-    console.log('This is logout')
+    try{
+        const response = await axios.post('/api/messenger/user-logout');
+        if(response.data.success){
+            localStorage.removeItem('authToken');
+            dispatch({
+                type : 'LOGOUT_SUCCESS'
+            })
+        }
+
+    }catch (error) {
+
+    }
 }
