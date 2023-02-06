@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import { FaEdit, FaEllipsisH, FaSistrix } from 'react-icons/fa';
+import { FaEdit, FaEllipsisH, FaSignOutAlt, FaSistrix } from 'react-icons/fa';
 import ActiveFriend from './ActiveFriend';
 import Friends from './Friends';
 import RightSide from './RightSide';
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from 'react';
 import { getFriends, messageSend, getMessage, ImageMessageSend, seenMessage, updateMessage } from '../store/actions/messengerAction';
+import { userLogout } from '../store/actions/authAction';
 import { useState } from 'react';
 import { useRef } from 'react';
 import {io} from 'socket.io-client'
@@ -248,6 +249,12 @@ const Messenger = () => {
         
     }
 
+    const [hide, setHide] = useState(true)
+
+    const logout = () => {
+        dispatch(userLogout());
+    }
+
 
   return (
     <div className='messenger'>
@@ -273,12 +280,28 @@ const Messenger = () => {
                             </div>
                         </div>
                         <div className="icons">
-                            <div className="icon">
+                            <div onClick={() => setHide(!hide)} className="icon">
                                <FaEllipsisH /> 
                             </div>
                             <div className="icon">
                                 <FaEdit />
                             </div>
+
+                            <div className={hide ? 'theme_logout' : 'theme_logout show'}>
+                                <h3>Dark Mode</h3>
+                                <div className="on">
+                                    <label htmlFor="dark">ON</label>
+                                    <input type="radio" value="dark" name="theme" id='dark'/>
+                                </div>
+                                <div className="off">
+                                    <label htmlFor="white">OFF</label>
+                                    <input type="radio" value="white" name="theme" id='white'/>
+                                </div>
+                                <div onClick={logout} className="logout">
+                                    <FaSignOutAlt/> Logout
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div className="friend-search">

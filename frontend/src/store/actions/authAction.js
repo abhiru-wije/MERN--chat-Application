@@ -65,3 +65,7 @@ export const userLogin = (data) => {
         }
     }
 }
+
+export const userLogout = () => async(dispatch) => {
+    console.log('This is logout')
+}
