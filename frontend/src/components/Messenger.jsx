@@ -20,7 +20,7 @@ const Messenger = () => {
     const scrollRef = useRef();
     const socket = useRef();
 
-    const {friends, message, messageSendSuccess, message_get_success} = useSelector(state => state.messenger);
+    const {friends, message, messageSendSuccess, message_get_success, themeMood} = useSelector(state => state.messenger);
     const {myInfo} = useSelector(state => state.auth);
 
     const [currentFriend, setCurrentFriend] = useState('');
@@ -258,7 +258,7 @@ const Messenger = () => {
 
 
   return (
-    <div className='messenger'>
+    <div className={themeMood === 'dark' ? 'messenger theme': 'messenger'}>
         <Toaster
         position={'top-right'}
         reverseOrder = {false}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS } from "../types/messengerType";
+import { FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, THEME_GET_SUCCESS, THEME_SET_SUCCESS } from "../types/messengerType";
 
 
 export const getFriends = () => async(dispatch) => {
@@ -80,9 +80,21 @@ export const updateMessage = (msg) => async(dispatch) => {
 }
 
 export const getTheme = () => async(dispatch) => {
-    
+    const theme = localStorage.getItem('theme');
+    dispatch({
+        type: 'THEME_GET_SUCCESS',
+        payload: {
+            theme: theme? theme : 'white'
+        }
+    })
 }
 
-export const themeSet = () => async(dispatch) => {
-
+export const themeSet = (theme) => async(dispatch) => {
+    localStorage.setItem('theme', theme);
+    dispatch({
+        type: 'THEME_SET_SUCCESS',
+        payload: {
+            theme: theme
+        }
+    })
 }
