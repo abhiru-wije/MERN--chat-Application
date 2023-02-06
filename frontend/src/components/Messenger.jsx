@@ -8,7 +8,7 @@ import useSound from 'use-sound';
 import notificationSound from '../audio/notification.mp3';
 import sendingSound from '../audio/sending.mp3';
 import { userLogout } from '../store/actions/authAction';
-import { getFriends, getMessage, ImageMessageSend, messageSend, seenMessage, updateMessage } from '../store/actions/messengerAction';
+import { getFriends, getMessage, ImageMessageSend, messageSend, seenMessage, updateMessage, getTheme, themeSet } from '../store/actions/messengerAction';
 import Friends from './Friends';
 import RightSide from './RightSide';
 
@@ -252,6 +252,10 @@ const Messenger = () => {
         socket.current.emit('logout', myInfo.id)
     }
 
+    useEffect(() => {
+        dispatch(getTheme());
+    }, []);
+
 
   return (
     <div className='messenger'>
@@ -288,11 +292,11 @@ const Messenger = () => {
                                 <h3>Dark Mode</h3>
                                 <div className="on">
                                     <label htmlFor="dark">ON</label>
-                                    <input type="radio" value="dark" name="theme" id='dark'/>
+                                    <input onChange={(e) => dispatch(themeSet(e.target.value)) } type="radio" value="dark" name="theme" id='dark'/>
                                 </div>
                                 <div className="off">
                                     <label htmlFor="white">OFF</label>
-                                    <input type="radio" value="white" name="theme" id='white'/>
+                                    <input onChange={(e) => dispatch(themeSet(e.target.value)) } type="radio" value="white" name="theme" id='white'/>
                                 </div>
                                 <div onClick={logout} className="logout">
                                     <FaSignOutAlt/> Logout
