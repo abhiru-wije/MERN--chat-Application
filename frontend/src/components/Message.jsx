@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import moment from 'moment';
 import React from 'react'
+import { FaCheckCircle } from 'react-icons/fa';
 import { useSelector } from 'react-redux'
 
 const Message = ({message, currentFriend, scrollRef, typingMessage}) => {
@@ -12,11 +13,17 @@ const Message = ({message, currentFriend, scrollRef, typingMessage}) => {
     <>
     <div className="message-show">
         {
-            message && message.length > 0 ? message.map(m => m.senderId === myInfo.id ? 
+            message && message.length > 0 ? message.map((m, index) => m.senderId === myInfo.id ? 
                 <div ref={scrollRef} className="my-message">
             <div className="image-message">
                 <div className="my-text">
                     <p className='message-text'>{m.message.text === '' ? <img src={`./image/${m.message.image}`}/> : m.message.text}</p>
+
+                    {
+                        index === message.length -1 && m.senderId === myInfo.id ? m.status === 'seen' ? <img className='img'   src={`./image/${currentFriend.image}`}alt="" />
+                        : m.status === 'delivered' ? <span><FaCheckCircle/></span> : <span><FaCheckCircle/></span> : ''
+                    }
+
                 </div>
             </div>
             <div className="time">
