@@ -1,4 +1,4 @@
-import {DELIVERED_MESSAGE, FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_GET_SUCCESS_CLEAR, MESSAGE_SEND_SUCCESS, MESSAGE_SEND_SUCCESS_CLEAR, SEEN_MESSAGE, SOCKET_MESSAGE, UPDATE, UPDATE_FRIEND_MESSAGE} from '../types/messengerType'
+import {DELIVERED_MESSAGE, FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_GET_SUCCESS_CLEAR, MESSAGE_SEND_SUCCESS, MESSAGE_SEND_SUCCESS_CLEAR, SEEN_ALL, SEEN_MESSAGE, SOCKET_MESSAGE, UPDATE, UPDATE_FRIEND_MESSAGE} from '../types/messengerType'
 
 const messengerState = {
     friends : [],
@@ -83,6 +83,14 @@ export const messengerReducer = (state = messengerState, action) => {
         return{
             ...state,
             message_get_success: false
+        }
+    }
+
+    if(type === SEEN_ALL){
+        const index = state.friends.findIndex(f => f.fndInfo._id === payload.receiverId);
+        state.friends[index].msgInfo.status = 'seen';
+        return {
+            ...state
         }
     }
 

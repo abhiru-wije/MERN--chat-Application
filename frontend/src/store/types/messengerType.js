@@ -8,3 +8,4 @@ export const SEEN_MESSAGE = 'SEEN_MESSAGE';
 export const DELIVERED_MESSAGE = 'DELIVERED_MESSAGE';
 export const UPDATE = 'UPDATE';
 export const MESSAGE_GET_SUCCESS_CLEAR = 'MESSAGE_GET_SUCCESS_CLEAR';
+export const SEEN_ALL = 'SEEN_ALL';
