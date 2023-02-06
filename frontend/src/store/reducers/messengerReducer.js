@@ -1,9 +1,10 @@
-import {DELIVERED_MESSAGE, FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_SEND_SUCCESS, MESSAGE_SEND_SUCCESS_CLEAR, SEEN_MESSAGE, SOCKET_MESSAGE, UPDATE, UPDATE_FRIEND_MESSAGE} from '../types/messengerType'
+import {DELIVERED_MESSAGE, FRIEND_GET_SUCCESS, MESSAGE_GET_SUCCESS, MESSAGE_GET_SUCCESS_CLEAR, MESSAGE_SEND_SUCCESS, MESSAGE_SEND_SUCCESS_CLEAR, SEEN_MESSAGE, SOCKET_MESSAGE, UPDATE, UPDATE_FRIEND_MESSAGE} from '../types/messengerType'
 
 const messengerState = {
     friends : [],
     message : [],
-    messageSendSuccess: false
+    messageSendSuccess: false,
+    message_get_success: false
 }
 
 export const messengerReducer = (state = messengerState, action) => {
@@ -14,12 +15,15 @@ export const messengerReducer = (state = messengerState, action) => {
             friends : payload.friends
         }
     }
+
     if(type === MESSAGE_GET_SUCCESS){
         return {
             ...state,
+            message_get_success: true,
             message : payload.message
         }
     }
+
     if(type === MESSAGE_SEND_SUCCESS){
         return {
             ...state,
@@ -27,6 +31,7 @@ export const messengerReducer = (state = messengerState, action) => {
             message : [...state.message, payload.message]
         }
     }
+
     if(type === SOCKET_MESSAGE){
         return {
             ...state,
@@ -71,6 +76,13 @@ export const messengerReducer = (state = messengerState, action) => {
         }
         return {
             ...state
+        }
+    }
+
+    if(type === MESSAGE_GET_SUCCESS_CLEAR){
+        return{
+            ...state,
+            message_get_success: false
         }
     }
 
